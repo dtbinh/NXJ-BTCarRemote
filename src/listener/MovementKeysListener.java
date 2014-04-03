@@ -9,8 +9,8 @@ public class MovementKeysListener implements KeyListener {
 
     private MovementController movementController;
 
-    public MovementKeysListener() {
-	this.movementController = new MovementController();
+    public MovementKeysListener(MovementController movementController) {
+	this.movementController = movementController;
     }
 
     @Override
