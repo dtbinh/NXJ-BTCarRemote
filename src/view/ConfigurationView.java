@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -35,6 +36,7 @@ public class ConfigurationView {
 
 	gbc.gridx = 1;
 	JFormattedTextField key = new JFormattedTextField();
+	key.setPreferredSize(new Dimension(100, 20));
 	key.setValue(value);
 	container.add(key, gbc);
 

@@ -10,7 +10,7 @@ public class MovementKeysListener implements KeyListener {
     private MovementController movementController;
 
     public MovementKeysListener(MovementController movementController) {
-	this.movementController = movementController;
+        this.movementController = movementController;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class MovementKeysListener implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-	this.processKeyCode(e.getKeyCode());
+        this.processKeyCode(e.getKeyCode());
     }
 
     @Override
@@ -27,22 +27,22 @@ public class MovementKeysListener implements KeyListener {
     }
 
     private void processKeyCode(int keyCode) {
-	switch (keyCode) {
-	case KeyEvent.VK_LEFT:
-	    this.movementController.left();
-	    break;
-	case KeyEvent.VK_RIGHT:
-	    this.movementController.right();
-	    break;
-	case KeyEvent.VK_UP:
-	    this.movementController.forward();
-	    break;
-	case KeyEvent.VK_DOWN:
-	    this.movementController.backward();
-	    break;
-	case KeyEvent.VK_SPACE:
-	    this.movementController.stop();
-	    break;
-	}
+        switch (keyCode) {
+            case KeyEvent.VK_LEFT:
+                this.movementController.left();
+                break;
+            case KeyEvent.VK_RIGHT:
+                this.movementController.right();
+                break;
+            case KeyEvent.VK_UP:
+                this.movementController.forward();
+                break;
+            case KeyEvent.VK_DOWN:
+                this.movementController.backward();
+                break;
+            case KeyEvent.VK_SPACE:
+                this.movementController.stop();
+                break;
+        }
     }
 }
