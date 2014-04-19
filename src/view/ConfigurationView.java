@@ -14,11 +14,11 @@ public class ConfigurationView {
     }
 
     public void render(JComponent component) {
-        FormRecord[] formRecords = { new FormRecord("speed", "Speed", config),
-                new FormRecord("rotationStep", "Rotation step", config),
-                new FormRecord("originAngle", "Origin angle", config) };
+        FormRecord[] formRecords = { new FormRecord("speed", "Speed"),
+                new FormRecord("rotationStep", "Rotation step"),
+                new FormRecord("originAngle", "Origin angle") };
 
-        FormView formView = new FormView(formRecords, new PropertyAccessor());
+        FormView formView = new FormView(formRecords, config, new PropertyAccessor());
 
         formView.render(component);
     }

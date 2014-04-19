@@ -18,10 +18,12 @@ import util.PropertyAccessor;
 public class FormView {
     private FormRecord[] formRecords;
     private final PropertyAccessor propertyAccessor;
+    private final Object data;
 
-    public FormView(FormRecord[] formRecords, PropertyAccessor propertyAccessor) {
+    public FormView(FormRecord[] formRecords, Object data, PropertyAccessor propertyAccessor) {
         this.formRecords = formRecords;
         this.propertyAccessor = propertyAccessor;
+        this.data = data;
     }
 
     public void render(JComponent component) {
@@ -37,13 +39,13 @@ public class FormView {
             component.add(label, gbc);
 
             gbc.gridx = 1;
-            component.add(this.createFromObject(record.getData(), record.getName()), gbc);
+            component.add(this.createJComponentFromObject(this.data, record.getName()), gbc);
 
             gbc.gridy++;
         }
     }
 
-    private JComponent createFromObject(final Object o, final String fieldName) {
+    private JComponent createJComponentFromObject(final Object o, final String fieldName) {
         JComponent component = null;
 
         try {
