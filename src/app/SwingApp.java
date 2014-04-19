@@ -25,6 +25,8 @@ import dispatcher.KeyDispatcher;
 
 public class SwingApp implements Runnable {
 
+    private final Configuration configuration = new Configuration();
+
     @Override
     public void run() {
         int windowWidth = 800;
@@ -41,7 +43,7 @@ public class SwingApp implements Runnable {
         gbc.weighty = 1;
 
         JPanel configPanel = new JPanel();
-        ConfigurationView configView = new ConfigurationView(new Configuration());
+        ConfigurationView configView = new ConfigurationView(this.configuration);
         configView.render(configPanel);
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -60,7 +62,7 @@ public class SwingApp implements Runnable {
                     KeyboardFocusManager kfm = KeyboardFocusManager
                             .getCurrentKeyboardFocusManager();
                     kfm.addKeyEventDispatcher(new KeyDispatcher(new MovementKeysListener(
-                            new MovementController())));
+                            new MovementController(configuration))));
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Cannot connect to NXT brick");
                     ex.printStackTrace();
