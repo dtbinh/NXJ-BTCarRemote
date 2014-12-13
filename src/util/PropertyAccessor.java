@@ -18,7 +18,7 @@ public class PropertyAccessor {
     public void setValue(String property, Object o, String value) {
         try {
             String methodName = String.format("set%1$s", StringUtils.capitalize(property));
-            o.getClass().getMethod(methodName).invoke(o, Integer.valueOf(value));
+            o.getClass().getMethod(methodName, int.class).invoke(o, Integer.valueOf(value));
         } catch (Exception e) {
             e.printStackTrace();
         }
