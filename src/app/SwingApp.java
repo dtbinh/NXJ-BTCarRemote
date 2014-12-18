@@ -71,21 +71,27 @@ public class SwingApp implements Runnable {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 status.setText("Connecting...");
+                jFrame.requestFocus();
 
-                try {
-                    NxjConnector connector = new NxjConnector();
-                    NXTCommandConnector.setNXTCommand(new NXTCommand(connector
-                            .createLcpConnection()));
-                    KeyboardFocusManager kfm = KeyboardFocusManager
-                            .getCurrentKeyboardFocusManager();
-                    kfm.addKeyEventDispatcher(new KeyDispatcher(new MovementKeysListener(
-                            new MovementController(configuration))));
-                    status.setText("Connected");
-                } catch (Exception ex) {
-                    status.setText("Connection failed");
-                    JOptionPane.showMessageDialog(null, "Cannot connect to NXT brick");
-                    ex.printStackTrace();
-                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            NxjConnector connector = new NxjConnector();
+                            NXTCommandConnector.setNXTCommand(new NXTCommand(connector
+                                    .createLcpConnection()));
+                            KeyboardFocusManager kfm = KeyboardFocusManager
+                                    .getCurrentKeyboardFocusManager();
+                            kfm.addKeyEventDispatcher(new KeyDispatcher(new MovementKeysListener(
+                                    new MovementController(configuration))));
+                            status.setText("Connected");
+                        } catch (Exception ex) {
+                            status.setText("Connection failed");
+                            JOptionPane.showMessageDialog(null, "Cannot connect to NXT brick");
+                            ex.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
     }
