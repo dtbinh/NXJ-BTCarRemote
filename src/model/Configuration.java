@@ -1,8 +1,8 @@
 package model;
 
 public class Configuration {
-    private int rotationStep = 10;
-    private int speed = 10;
+    private int rotationStep = 30;
+    private int speed = 2000;
     private int originAngle = 0;
 
     public int getRotationStep() {
