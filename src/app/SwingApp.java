@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -36,7 +37,6 @@ public class SwingApp implements Runnable {
         jFrame.getContentPane().setLayout(new GridBagLayout());
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(windowWidth, windowHeight);
-        jFrame.setVisible(true);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weightx = 1;
@@ -50,11 +50,28 @@ public class SwingApp implements Runnable {
         gbc.gridx = 0;
         gbc.gridy = 0;
         jFrame.getContentPane().add(configPanel, gbc);
+
         JButton connectButton = new JButton("Connect");
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        jFrame.getContentPane().add(connectButton, gbc);
+
+        final JLabel status = new JLabel();
+        status.setText("Unconnected");
+        gbc.anchor = GridBagConstraints.SOUTHWEST;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        jFrame.getContentPane().add(status, gbc);
+
+        jFrame.setVisible(true);
+
         connectButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                status.setText("Connecting...");
+
                 try {
                     NxjConnector connector = new NxjConnector();
                     NXTCommandConnector.setNXTCommand(new NXTCommand(connector
@@ -63,15 +80,13 @@ public class SwingApp implements Runnable {
                             .getCurrentKeyboardFocusManager();
                     kfm.addKeyEventDispatcher(new KeyDispatcher(new MovementKeysListener(
                             new MovementController(configuration))));
+                    status.setText("Connected");
                 } catch (Exception ex) {
+                    status.setText("Connection failed");
                     JOptionPane.showMessageDialog(null, "Cannot connect to NXT brick");
                     ex.printStackTrace();
                 }
             }
         });
-        gbc.anchor = GridBagConstraints.SOUTHEAST;
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jFrame.getContentPane().add(connectButton, gbc);
     }
 }
